@@ -32,10 +32,15 @@ class GradleRootPlugin implements Plugin<Project> {
         def VERSION_NAME = target.VERSION_NAME
         def isReleaseBuild = isReleaseBuild(target.gradle)
 
-        target.subprojects {
+        target.allprojects {
             group = GROUP
             version = isReleaseBuild ? VERSION_NAME : "${VERSION_NAME}-SNAPSHOT"
             logger.info("Project ${it.name} using version=${it.version}")
+
+            repositories {
+                it.jcenter()
+                it.mavenLocal()
+            }
         }
     }
 }

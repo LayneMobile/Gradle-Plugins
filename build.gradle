@@ -22,6 +22,11 @@ plugins {
     id 'com.jfrog.artifactory' version '4.4.0'
 }
 
+ext {
+    bintrayVersion = '1.6'
+    artifactoryVersion = '4.4.0'
+}
+
 repositories {
     jcenter()
 }
@@ -37,8 +42,12 @@ apply from: "${rootDir}/gradle/artifacts.gradle"
 gradlePlugin {
     plugins {
         root {
-            id = "com.laynemobile.gradle.root"
-            implementationClass = "com.laynemobile.gradle.GradleRootPlugin"
+            id = 'com.laynemobile.gradle.root'
+            implementationClass = 'com.laynemobile.gradle.GradleRootPlugin'
+        }
+        groovy {
+            id = 'com.laynemobile.gradle.groovy'
+            implementationClass = 'com.laynemobile.gradle.GradleGroovyPlugin'
         }
     }
 }
@@ -49,7 +58,8 @@ apply from: "${rootDir}/gradle/install.gradle"
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile "com.github.dcendents:android-maven-gradle-plugin:${appGradleAndroidMavenVersion}"
-    compile "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appGradleBintrayPluginVersion}"
-    compile "org.jfrog.buildinfo:build-info-extractor-gradle:${appGradleBuildInfoExtractorVersion}"
+    compile "com.jfrog.bintray.gradle:gradle-bintray-plugin:${bintrayVersion}"
+    compile("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}") {
+        exclude module: 'groovy-all'
+    }
 }
