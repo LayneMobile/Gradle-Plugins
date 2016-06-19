@@ -39,12 +39,12 @@ apply from: "${rootDir}/gradle/groovy-library.gradle"
 
 gradlePlugin {
     plugins {
-        root {
-            id = 'com.laynemobile.gradle.root'
+        parent {
+            id = 'com.laynemobile.gradle-parent'
             implementationClass = 'com.laynemobile.gradle.GradleRootPlugin'
         }
         groovy {
-            id = 'com.laynemobile.gradle.groovy'
+            id = 'com.laynemobile.gradle-groovy'
             implementationClass = 'com.laynemobile.gradle.GradleGroovyPlugin'
         }
     }
