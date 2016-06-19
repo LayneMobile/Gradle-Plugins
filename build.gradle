@@ -25,19 +25,17 @@ plugins {
 ext {
     bintrayVersion = '1.6'
     artifactoryVersion = '4.4.0'
+    LICENSES = ['Apache-2.0']
+    LABELS = ['gradle', 'laynemobile', 'gradle-plugin']
 }
 
 repositories {
     jcenter()
 }
 
-ext {
-    LICENSES = ['Apache-2.0']
-    LABELS = ['gradle', 'laynemobile', 'gradle-plugin']
-}
-
+apply from: "${rootDir}/gradle/artifactory.gradle"
 // Create javadoc/sources
-apply from: "${rootDir}/gradle/artifacts.gradle"
+apply from: "${rootDir}/gradle/groovy-library.gradle"
 
 gradlePlugin {
     plugins {
