@@ -20,7 +20,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 
-class GradleRootPlugin implements Plugin<Project> {
+class GradleParentPlugin implements Plugin<Project> {
     static def isReleaseBuild(def gradle) {
         // brittle but works
         return gradle.startParameter.taskNames.contains('bintrayUpload')
