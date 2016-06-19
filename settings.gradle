@@ -14,26 +14,6 @@
  * limitations under the License.
  */
 
- ext {
-    LICENSES = ['Apache-2.0']
-    LABELS = ['gradle', 'laynemobile', 'gradle-plugin']
- }
+include ':root-plugin'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appGradleBintrayPluginVersion}"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${appGradleBuildInfoExtractorVersion}"
-    }
-}
-
-apply from: "${rootDir}/gradle/artifactory.gradle"
-
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
+rootProject.name = 'com.laynemobile.gradle'
