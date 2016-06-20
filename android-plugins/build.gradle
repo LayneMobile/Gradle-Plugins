@@ -28,13 +28,9 @@ apply from: "${rootDir}/gradle/groovy-library.gradle"
 
 gradlePlugin {
     plugins {
-        parent {
-            id = 'com.laynemobile.gradle-parent'
-            implementationClass = 'com.laynemobile.gradle.GradleParentPlugin'
-        }
-        groovy {
-            id = 'com.laynemobile.gradle-groovy'
-            implementationClass = 'com.laynemobile.gradle.GradleGroovyPlugin'
+        'android-library' {
+            id = 'com.laynemobile.gradle.android-library'
+            implementationClass = 'com.laynemobile.gradle.GradleAndroidLibraryPlugin'
         }
     }
 }
@@ -45,8 +41,6 @@ apply from: "${rootDir}/gradle/install.gradle"
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile "com.jfrog.bintray.gradle:gradle-bintray-plugin:${appGradleBintrayPluginVersion}"
-    compile("org.jfrog.buildinfo:build-info-extractor-gradle:${appGradleBuildInfoExtractorVersion}") {
-        exclude module: 'groovy-all'
-    }
+    compile "com.android.tools.build:gradle:${appGradleAndroidVersion}"
+    compile "com.github.dcendents:android-maven-gradle-plugin:${appGradleAndroidMavenVersion}"
 }

@@ -19,7 +19,6 @@ package com.laynemobile.gradle
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-
 class GradleParentPlugin implements Plugin<Project> {
     static def isReleaseBuild(def gradle) {
         // brittle but works
@@ -28,6 +27,33 @@ class GradleParentPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project target) {
+        def String artify = 'com.jfrog.artifactory'
+        if (!target.plugins.findPlugin(artify)) {
+            target.apply plugin: artify
+        }
+
+        target.artifactory {
+            contextUrl = 'https://oss.jfrog.org'
+
+            publish {
+                it.repository {
+                    it.repoKey = 'oss-snapshot-local'
+
+                    if (target.hasProperty('bintrayUser')) {
+                        it.username = target.property('bintrayUser')
+                        it.password = target.property('bintrayKey')
+                    }
+                }
+
+                it.defaults {
+                    it.publishConfigs('archives')
+                }
+            }
+            resolve {
+                it.repoKey = 'jcenter'
+            }
+        }
+
         def GROUP = target.GROUP
         def VERSION_NAME = target.VERSION_NAME
         def isReleaseBuild = isReleaseBuild(target.gradle)
